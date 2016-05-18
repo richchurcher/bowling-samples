@@ -27,3 +27,11 @@ test('scores a spare frame', function (t) {
   t.equals(score, 13, 'scores a spare frame')
   t.end()
 })
+
+test('scores a single strike', function (t) {
+  var frame = [10, 0]
+  var nextFrame = [8, 1]
+  var score = game.scoreFrame(frame, nextFrame)
+  t.equals(score, 19)
+  t.end()
+})
