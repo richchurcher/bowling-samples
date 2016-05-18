@@ -12,3 +12,10 @@ test('scores a gutterball frame', function (t) {
   t.equals(score, 0)
   t.end()
 })
+
+test('scores an open frame', function (t) {
+  var frame = [2, 6]
+  var score = game.scoreFrame(frame)
+  t.equals(score, 8, 'scores an open frame')
+  t.end()
+})
