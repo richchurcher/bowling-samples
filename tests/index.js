@@ -35,3 +35,12 @@ test('scores a single strike', function (t) {
   t.equals(score, 19)
   t.end()
 })
+
+test('scores two strikes', function (t) {
+  var frame = [10, 0]
+  var nextFrame = [10, 0]
+  var finalFrame = [7, 1]
+  var score = game.scoreFrame(frame, nextFrame, finalFrame)
+  t.equals(score, 27)
+  t.end()
+})
