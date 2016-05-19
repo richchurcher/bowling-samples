@@ -1,5 +1,31 @@
 module.exports = {
-  scoreFrame: scoreFrame
+  score: score,
+  scoreFrame: scoreFrame,
+  scoreRecursive: scoreRecursive,
+  scoreWithSumBy: scoreWithSumBy
+}
+
+function score (frames) {
+  return frames.reduce(function (sum, frame, i) {
+    var end = i < frames.length - 3 ? i + 3 : undefined
+    var chunk = frames.slice(i, end)
+    return sum + scoreFrame(chunk[0], chunk[1], chunk[2])
+  }, 0)
+}
+
+function scoreRecursive (frames) {
+  if (frames.length === 1) {
+    return scoreFrame(frames[0])
+  }
+
+  var score = scoreFrame(frames[0], frames[1], frames[2])
+  return score + scoreRecursive(frames.slice(1))
+}
+
+function scoreWithSumBy (frames) {
+  return frames.sumBy(function (sum, n, i) {
+    return sum + scoreFrame(frames[i], frames[i + 1], frames[i + 2])
+  }, 0)
 }
 
 Array.prototype.sum = function () {
@@ -9,6 +35,13 @@ Array.prototype.sum = function () {
     }
     return sum
   }, 0)
+}
+
+Array.prototype.sumBy = function (fn, accumulator) {
+  if (typeof fn !== 'function') {
+    return undefined
+  }
+  return this.reduce(fn, accumulator)
 }
 
 function scoreFrame (frame1, frame2, frame3) {

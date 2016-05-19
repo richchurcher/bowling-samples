@@ -44,3 +44,30 @@ test('scores two strikes', function (t) {
   t.equals(score, 27)
   t.end()
 })
+
+test('scores a game with two balls in last frame', function (t) {
+  var frames = [
+    [1, 2], [6, 4], [5, 4], [10, 0], [7, 2], [10, 0], [10, 0], [5, 2], [7, 0], [4, 4]
+  ]
+  var score = game.score(frames)
+  t.equals(score, 119)
+  t.end()
+})
+
+test('scores a game recursively', function (t) {
+  var frames = [
+    [1, 2], [6, 4], [5, 4], [10, 0], [7, 2], [10, 0], [10, 0], [5, 2], [7, 0], [4, 4]
+  ]
+  var score = game.scoreRecursive(frames)
+  t.equals(score, 119)
+  t.end()
+})
+
+test('scores a game with sumBy', function (t) {
+  var frames = [
+    [1, 2], [6, 4], [5, 4], [10, 0], [7, 2], [10, 0], [10, 0], [5, 2], [7, 0], [4, 4]
+  ]
+  var score = game.scoreWithSumBy(frames)
+  t.equals(score, 119)
+  t.end()
+})
