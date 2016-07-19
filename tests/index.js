@@ -58,8 +58,11 @@ test('scores a game recursively', function (t) {
   var frames = [
     [1, 2], [6, 4], [5, 4], [10, 0], [7, 2], [10, 0], [10, 0], [5, 2], [7, 0], [4, 4]
   ]
+  var start = Date.now()
   var score = game.scoreRecursive(frames)
+  var finish = Date.now()
   t.equals(score, 119)
+  console.log(`ELAPSED: ${finish - start}ms`)
   t.end()
 })
 
@@ -67,7 +70,22 @@ test('scores a game with sumBy', function (t) {
   var frames = [
     [1, 2], [6, 4], [5, 4], [10, 0], [7, 2], [10, 0], [10, 0], [5, 2], [7, 0], [4, 4]
   ]
+  var start = Date.now()
   var score = game.scoreWithSumBy(frames)
   t.equals(score, 119)
+  var finish = Date.now()
+  console.log(`ELAPSED: ${finish - start}ms`)
+  t.end()
+})
+
+test('scores a game with complex ending', function (t) {
+  var frames = [
+    [1, 2], [6, 4], [5, 4], [10, 0], [7, 2], [10, 0], [10, 0], [5, 2], [7, 0], [10, 10, 10]
+  ]
+  var start = Date.now()
+  var score = game.scoreWithSumBy(frames)
+  t.equals(score, 141)
+  var finish = Date.now()
+  console.log(`ELAPSED: ${finish - start}ms`)
   t.end()
 })

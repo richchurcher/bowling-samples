@@ -28,30 +28,14 @@ function scoreWithSumBy (frames) {
   }, 0)
 }
 
-Array.prototype.sum = function () {
-  return this.reduce(function (sum, n) {
-    if (typeof n === 'number') {
-      return sum + n
-    }
-    return sum
-  }, 0)
-}
-
-Array.prototype.sumBy = function (fn, accumulator) {
-  if (typeof fn !== 'function') {
-    return undefined
-  }
-  return this.reduce(fn, accumulator)
-}
-
 function scoreFrame (frame1, frame2, frame3) {
-  var strike = handleStrikes(frame1, frame2, frame3)
-  if (strike) {
-    return strike
-  }
-  var spare = handleSpares(frame1, frame2)
-  if (spare) {
-    return spare
+  if (!isFinal(frame1)) {
+    if (isStrike(frame1)) {
+      return handleStrikes(frame1, frame2, frame3)
+    }
+    if (isSpare(frame1)) {
+      return handleSpares(frame1, frame2)
+    }
   }
   return frame1.sum()
 }
@@ -80,4 +64,24 @@ function isStrike (frame) {
 
 function isSpare (frame) {
   return frame.sum() === 10
+}
+
+function isFinal (frame) {
+  return frame.length === 3
+}
+
+Array.prototype.sum = function () {
+  return this.reduce(function (sum, n) {
+    if (typeof n === 'number') {
+      return sum + n
+    }
+    return sum
+  }, 0)
+}
+
+Array.prototype.sumBy = function (fn, accumulator) {
+  if (typeof fn !== 'function') {
+    return undefined
+  }
+  return this.reduce(fn, accumulator)
 }
